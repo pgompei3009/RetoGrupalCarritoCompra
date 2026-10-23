@@ -1,7 +1,4 @@
-import { showMenu } from './funcs.js';
-import { calculateTotal } from './funcs.js';
-import { addProduct } from './funcs.js';
-import { verifyStock } from './funcs.js';
+import { showMenu, calculateTotal, addProduct, showCatalog } from './funcs.js';
 
 
 const catalog = new Map([
@@ -25,19 +22,35 @@ const catalog = new Map([
     }]
 ]);
 
+
+const cupons = new Map([['VERANO10', 0.9], ['PROMO20', 0.8]]);
+
 let shoppingCart = new Map();
 
 
-while (true) {
+do {
     showMenu();
-    option = prompt('Choose an option: ');
+    var option = prompt('Choose an option: ');
     switch (option) {
-        case 1:
-            productId = prompt('What product do you want to add?: ')
-            addProduct(catalog, shoppingCart, productId, quantity)
-        case 2:
+        default:
+            console.log('Invalid option.');
+            break;
 
-        case 3:
-            
+        case '1':
+            showCatalog(catalog);
+            let productId = prompt('What product do you want to add?: ');
+            let quantity = prompt('How many units do you want to buy?: ')
+            addProduct(catalog, shoppingCart, productId, quantity);
+            break;
+
+        case '2':
+            eliminarProducto(shoppingCart);   
+            break;         
+
+        case '3':
+            break;
     }
-}
+} while (option != '3');
+
+let total = calculateTotal(shoppingCart, catalog, cupons);
+console.log('El total de su compra es de ' + total + '€. Disfruta.');
