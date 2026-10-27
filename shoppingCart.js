@@ -52,5 +52,4 @@ do {
     }
 } while (option != '3');
 
-let total = calculateTotal(shoppingCart, catalog, cupons);
-console.log('El total de su compra es de ' + total + '€. Disfruta.');
+printTicket(shoppingCart, catalog, cupons)

@@ -1,15 +1,11 @@
-export function printTicket(catalog, shoppingCart, cupon) {
+export function printTicket(shoppingCart, catalog, cupons) {
     console.log("==================================================");
     console.log("Processing purchase and updating stock...");
     console.log("==================================================");
     console.log("         PURCHASE INVOICE - CONFIRMED");
     console.log("==================================================");
     console.log("Order status: COMPLETE AND PAID"); 
-    console.log(`Total billed (simulated): ${calcularTotalshoppingCart(catalog, shoppingCart, cupon)})`)
-    console.log("NEW STOCK IN CATALOG:");
-    for (let [productId, product] of catalog) {
-        console.log(`- ${productId} (${product.name}): ${product.stock} units`);
-    }
+    console.log(`Total billed (simulated): ${calculateTotal(shoppingCart, catalog, cupons)})`)
     console.log("==================================================");
 }
 
