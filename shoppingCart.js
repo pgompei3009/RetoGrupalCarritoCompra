@@ -1,4 +1,4 @@
-import { showMenu, calculateTotal, addProduct, showCatalog } from './funcs.js';
+import { showMenu, calculateTotal, addProduct, showCatalog, printTicket } from './funcs.js';
 
 
 const catalog = new Map([

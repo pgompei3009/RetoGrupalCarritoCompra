@@ -1,14 +1,14 @@
-function printTicket(catalogo, carrito, cupon) {
+export function printTicket(catalog, shoppingCart, cupon) {
     console.log("==================================================");
-    console.log("Procesando compra y actualizando stock...");
+    console.log("Processing purchase and updating stock...");
     console.log("==================================================");
-    console.log("         FACTURA DE COMPRA - CONFIRMADA");
+    console.log("         PURCHASE INVOICE - CONFIRMED");
     console.log("==================================================");
-    console.log("Estado del pedido: COMPLETO Y PAGADO"); 
-    console.log(`Total cobrado (simulado): ${calcularTotalCarrito(catalogo, carrito, cupon)})`)
-    console.log("NUEVO STOCK EN CATÁLOGO:");
-    for (let [id, producto] of catalogo) {
-        console.log(`- ${id} (${producto.nombre}): ${producto.stock} unidades`);
+    console.log("Order status: COMPLETE AND PAID"); 
+    console.log(`Total billed (simulated): ${calcularTotalshoppingCart(catalog, shoppingCart, cupon)})`)
+    console.log("NEW STOCK IN CATALOG:");
+    for (let [productId, product] of catalog) {
+        console.log(`- ${productId} (${product.name}): ${product.stock} units`);
     }
     console.log("==================================================");
 }
