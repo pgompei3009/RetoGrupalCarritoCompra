@@ -15,7 +15,7 @@ export function showCatalog(catalog) {
 
 export function addProduct(catalog, shoppingCart, productId, quantity) {
     if (!catalog.has(productId)) {
-        console.log("Product not found. sry");
+        console.log("Product not found.");
         return false;
     }
 
@@ -30,11 +30,10 @@ export function addProduct(catalog, shoppingCart, productId, quantity) {
         }
         product.stock -= quantity;
 
-        console.log("Your products gng: ");
-        console.log(`De product "${product.name}", has an individual price of ${product.price}€. Adding ${quantity} units`);
+        console.log(`The product "${product.name}", has an individual price of ${product.price}€. Adding ${quantity} units`);
     
     } else {
-        console.log("No stock gng.");
+        console.log("No stock available.");
         return false;
     }
 }
@@ -54,7 +53,7 @@ export function removeProduct(catalog, shoppingCart, productId, quantity) {
     } else if (quantity > shoppingCart.get(productId)) {
         console.log(`The product has less than ${quantity} units in the cart.`);
         return false;
-    };
+    }
 
     shoppingCart.set(productId, (shoppingCart.get(productId) - quantity));
     catalog.get(productId).stock += units;
@@ -79,12 +78,12 @@ export function calculateTotal(shoppingCart, catalog, cupons) {
     let total = 0;
     for (let [productId, quantity] of shoppingCart) {
         total += (catalog.get(productId).price * quantity);
-    };
+    }
 
-    let cupon = prompt('Enter your cupon: ');
+    let cupon = prompt('Enter your cupon: ')
         if (cupons.has(cupon)) {
             total *= cupons.get(cupon);
-        };
+        }
     
     total *= 1 + IVA;
     return total;
