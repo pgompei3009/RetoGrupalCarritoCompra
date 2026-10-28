@@ -1,4 +1,4 @@
-import { showMenu, calculateTotal, addProduct, showCatalog, printTicket } from './funcs.js';
+import { showMenu, addProduct, removeProduct, showCatalog, showCart, printTicket } from './funcs.js';
 
 
 const catalog = new Map([
@@ -24,13 +24,13 @@ const catalog = new Map([
 
 
 const cupons = new Map([['VERANO10', 0.9], ['PROMO20', 0.8]]);
-
 let shoppingCart = new Map();
 
 
 do {
     showMenu();
     var option = prompt('Choose an option: ');
+    let productId, quantity;
     switch (option) {
         default:
             console.log('Invalid option.');
@@ -38,18 +38,21 @@ do {
 
         case '1':
             showCatalog(catalog);
-            let productId = prompt('What product do you want to add?: ');
-            let quantity = prompt('How many units do you want to buy?: ')
+            productId = prompt('What product do you want to add?: ');
+            quantity = parseInt(prompt('How many units do you want to buy?: '));
             addProduct(catalog, shoppingCart, productId, quantity);
             break;
 
         case '2':
-            eliminarProducto(shoppingCart);   
+            showCart(shoppingCart);
+            productId = prompt('What product do you want to remove?: ');
+            quantity = parseInt(prompt('How many units do you want to remove?: '));
+            removeProduct(catalog, shoppingCart, productId, quantity);   
             break;         
 
         case '3':
             break;
-    }
+    };
 } while (option != '3');
 
-printTicket(shoppingCart, catalog, cupons)
+printTicket(shoppingCart, catalog, cupons);
