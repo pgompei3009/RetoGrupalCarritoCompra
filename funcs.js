@@ -13,31 +13,6 @@ export function showCatalog(catalog) {
 }
 
 
-export function addProduct(catalog, shoppingCart, productId, quantity) {
-    if (!catalog.has(productId)) {
-        console.log("Product not found. sry");
-        return false;
-    }
-
-    let product = catalog.get(productId);
-    console.log(product)
-
-    if (product.stock >= quantity) {
-        if (!shoppingCart.has(productId)) {
-            shoppingCart.set(productId, quantity);
-        } else {
-            shoppingCart.set(productId, (shoppingCart.get(productId) + quantity));
-        }
-        product.stock -= quantity;
-
-        console.log("Your products gng: ");
-        console.log(`De product "${product.name}", has an individual price of ${product.price}€. Adding ${quantity} units`);
-    
-    } else {
-        console.log("No stock gng.");
-        return false;
-    }
-}
 
 
 export function showCart(shoppingCart) {
@@ -47,17 +22,59 @@ export function showCart(shoppingCart) {
 }
 
 
-export function removeProduct(catalog, shoppingCart, productId, quantity) {
-    if (!shoppingCart.has(productId)) {
-        console.log(`No ${productId} found in cart.`);
+export function addProduct(catalog, shoppingCart, productId, quantity) {
+    if (!catalog.has(productId)) {
+        console.log("Product not found. sorry");
         return false;
-    } else if (quantity > shoppingCart.get(productId)) {
-        console.log(`The product has less than ${quantity} units in the cart.`);
-        return false;
-    };
+    }
 
-    shoppingCart.set(productId, (shoppingCart.get(productId) - quantity));
-    catalog.get(productId).stock += units;
+    let product = catalog.get(productId);
+    console.log(product)
+
+    if (product.stock >= quantity) {
+        const currentCartQty = shoppingCart.get(productId) || 0;
+        shoppingCart.set(productId, currentCartQty + quantity);
+        product.stock -= quantity;
+
+        console.log("Your products gng: ");
+        console.log(`The product "${product.name}", has an individual price of ${product.price}€. Adding ${quantity} units`);
+        return [shoppingCart, catalog];
+    
+    } else {
+        console.log("No stock gng.");
+        return false;
+    }
+}
+
+export function removeProduct(catalog, shoppingCart, productId, quantity){
+    if (!catalog.has(productId)) {
+        console.log("Product not found. sorry");
+        return false;
+    }
+    if (!shoppingCart.has(productId)) {
+        console.log("Product not in cart. sorry");
+        return false;
+    }
+    let product = catalog.get(productId);
+    let cartQuantity = shoppingCart.get(productId);
+
+    if (cartQuantity >= quantity) {
+        const remainingQuantity = cartQuantity - quantity;
+
+
+        if (remainingQuantity === 0) {
+            shoppingCart.delete(productId);
+        } else {
+            shoppingCart.set(productId, remainingQuantity);
+        }
+
+        product.stock += quantity;
+        console.log(`Removed ${quantity} units of "${product.name}" from the cart`);
+        return [shoppingCart, catalog];
+    } else {
+        console.log("Not enough quantity in cart. sorry");
+        return false;
+    }
 }
 
 
